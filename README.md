@@ -4,6 +4,10 @@ A lot of learning and inspiration for this project was gotten from:
 
 - https://github.com/ewulczyn/wiki-detox
 - https://www.tensorflow.org/install
+- Sara's resources: Live Coding A Machine Learning Model from Scratch (Google I/O'19)
+    - https://github.com/GoogleCloudPlatform/ai-platform-text-classifier-shap
+    - https://sararobinson.dev/2019/04/23/interpret-bag-of-words-models-shap.html
+    - https://www.youtube.com/watch?v=_RPHiqF2bSs
 
 
 ## Instructions for Mac
