@@ -31,17 +31,17 @@ A lot of learning and inspiration for this project was gotten from:
 ### A few personal notes on how ML works, in this case for text classification
 
 Overview steps
-- Get training data
+1. Get training data
     - It can be sorted or unsorted. Either ways you decide what you're going to work with. Most people get sorted data which is easier to train. Others prefer to sort the data in the model definition code. It's really up to you as a dev.
 
-- Divinde data into 3 - Trainiing, Validation and testing.
+2. Divinde data into 3 - Trainiing, Validation and testing.
 
     - This can be 3 different files or 3 files in 3 different folders. There are Python ML packages that can read them in various file/folder structures.
 
     - Others too would like to do this in the actual code by dividing them into arbitrary percentages.
     It's really up to you as a dev.
 
-- Create a new Jupyter notebook file and set the following in code:
+3. Create a new Jupyter notebook file and set the following in code:
     - where the data is coming from
 
     - Define your 'bag of words'
@@ -50,11 +50,12 @@ Overview steps
     - number of levels the data will go through in trainig. There's a tensorflow command to create a level.
         - The model actually does not take in raw strings so before the string starts entering the levels, it will have to be 'tokenized' - There's a command for that.
 
-- Add training command to file to start training. Run the file in Jupyter notebook.
+4. Add training command to file to start training. Run the file in Jupyter notebook.
 
-- If you're happy with the testing and validation accuracy results, `serialize` (or package in dev language) your model.
+5. If you're happy with the testing and validation accuracy results, `serialize` (or package in dev language) your model.
 
-- A 'seriealized' model can be used in a REST endpoint function that takes the same kind of data it was trained with. Then the endpoint will spit out the result.
+    - A 'seriealized' model can be used in a REST endpoint function that takes the same kind of data it was trained with. Then the endpoint will spit out the result. A Flask example can be found [here](https://github.com/GoogleCloudPlatform/ai-platform-text-classifier-shap/blob/fd089d0734e4298e23ee164651c8d7220985b531/functions/main.py#L19) 
+    
     - For mobile apps the serialized model can be added to the mobile app code and can be used with tensorflow there.
 
     - For web apps, there's tensorflow js that can employ the use of models in Javascript.
