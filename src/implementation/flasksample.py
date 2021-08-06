@@ -4,8 +4,6 @@ from flask import request
 import numpy as np
 import urllib
 import csv
-
-# import torch
 import os
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
@@ -18,18 +16,11 @@ def welcome():
 @app.route('/detect', methods=['GET', 'POST'])
 def detect():
     # Model loaded from https://huggingface.co/cardiffnlp/twitter-roberta-base-offensive/tree/main
-    # model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
     if request.method == "POST":
         thejson = request.json
         thejson['result'] = process(thejson['text'])
         return thejson
     return process("Good night 😊")
-
-    # return str(model.summary())
-    # resp ={}
-    # resp['prediction'] = model.predict(['We love you'])
-    # print("This was supposed to print right?")
-    # return resp
 
 def preprocess(text):
     new_text = []
@@ -59,8 +50,6 @@ def process(inputText):
         csvreader = csv.reader(html, delimiter='\t')
     labels = [row[1] for row in csvreader if len(row) > 1]
 
-    print(labels)
-
     # PT
     model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
     # model.save_pretrained(MODEL)
@@ -73,10 +62,7 @@ def process(inputText):
     scores = output[0][0].detach().numpy()
     scores = softmax(scores)
 
-    # Printing scores
-    # return scores.tolist()
-
-    # # TF
+    # # TF (Code below is if this process was to be done with TensoFlow)
     # model = TFAutoModelForSequenceClassification.from_pretrained(MODEL)
     # model.save_pretrained(MODEL)
     # text = "Good night 😊"
@@ -92,9 +78,7 @@ def process(inputText):
         l = labels[ranking[i]]
         s = scores[ranking[i]]
         results[labels[ranking[i]]] = str(s)
-        print(f"{i+1}) {l} {np.round(float(s), 4)}")
-    print("These are the results")
-    print(results)
+    
     return results
 
 if __name__ == '__main__':
