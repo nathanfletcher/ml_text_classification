@@ -82,4 +82,4 @@ def process(inputText):
     return results
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=os.environ['PORT'] if os.environ['PORT'] else '8888' )
+    app.run(host='0.0.0.0', port=os.environ.get('PORT', '8888') )
