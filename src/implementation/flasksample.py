@@ -9,18 +9,24 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 app = Flask(__name__)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def welcome():
     return "Hello World !"
 
+
 @app.route('/detect', methods=['GET', 'POST'])
 def detect():
     # Model loaded from https://huggingface.co/cardiffnlp/twitter-roberta-base-offensive/tree/main
+    thejson = {}
     if request.method == "POST":
         thejson = request.json
         thejson['result'] = process(thejson['text'])
-        return thejson
-    return process("Good night 😊")
+    else: 
+        thejson['text'] = "Good night 😊"
+        thejson['result'] = process(thejson['text'])
+        
+    return thejson
 
 def preprocess(text):
     new_text = []
@@ -30,20 +36,22 @@ def preprocess(text):
         new_text.append(t)
     return " ".join(new_text)
 
+
 def softmax(x):
     """ applies softmax to an input x"""
     e_x = np.exp(x - np.max(x))
     return e_x / e_x.sum()
 
+
 def process(inputText):
     # Tasks:
     # emoji, emotion, hate, irony, offensive, sentiment
     # stance/abortion, stance/atheism, stance/climate, stance/feminist, stance/hillary
-    task='offensive'
+    task = 'offensive'
     # MODEL = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
     # tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
     # download label mapping
-    labels=[]
+    labels = []
     mapping_link = f"https://raw.githubusercontent.com/cardiffnlp/tweeteval/main/datasets/{task}/mapping.txt"
     with urllib.request.urlopen(mapping_link) as f:
         html = f.read().decode('utf-8').split("\n")
@@ -51,14 +59,16 @@ def process(inputText):
     labels = [row[1] for row in csvreader if len(row) > 1]
 
     # PT
-    model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
+    model = AutoModelForSequenceClassification.from_pretrained(
+        "cardiffnlp/twitter-roberta-base-offensive")
     # model.save_pretrained(MODEL)
     text = inputText
     text = preprocess(text)
-    tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
+    tokenizer = AutoTokenizer.from_pretrained(
+        "cardiffnlp/twitter-roberta-base-offensive")
     encoded_input = tokenizer(text, return_tensors='pt')
     output = model(**encoded_input)
-    
+
     scores = output[0][0].detach().numpy()
     scores = softmax(scores)
 
@@ -78,8 +88,9 @@ def process(inputText):
         l = labels[ranking[i]]
         s = scores[ranking[i]]
         results[labels[ranking[i]]] = str(s)
-    
+
     return results
 
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=os.environ.get('PORT', '8888') )
+    app.run(host='0.0.0.0', port=os.environ.get('PORT', '8888'))
