@@ -20,7 +20,9 @@ def detect():
     # Model loaded from https://huggingface.co/cardiffnlp/twitter-roberta-base-offensive/tree/main
     # model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
     if request.method == "POST":
-        return process(request.get_json)
+        thejson = request.json
+        thejson['result'] = process(thejson['text'])
+        return thejson
     return process("Good night 😊")
 
     # return str(model.summary())
