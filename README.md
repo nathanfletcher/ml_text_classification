@@ -11,7 +11,7 @@ A lot of learning and inspiration for this project was gotten from:
 
 
 ## Instructions for Mac
-- Upgrade to Python 3 using pyenv using [homebrew](https://brew.sh/) by running `brew install pyenv`.
+- This repo works best with Python >= 3.8. Upgrade to Python 3.8 using `pyenv` via [homebrew](https://brew.sh/) by running `brew install pyenv` after installing `homebrew`.
 
 - For tensorflow you'll need python 3.8. So after installing `pyenv` from the first step, 
   - run `pyenv install 3.8.0`
