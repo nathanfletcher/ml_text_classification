@@ -6,13 +6,14 @@ import urllib
 import csv
 import os
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from flask import render_template
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def welcome():
-    return "Hello World !"
+    return render_template("index.html")
 
 
 @app.route('/detect', methods=['GET', 'POST'])
