@@ -19,8 +19,9 @@ def welcome():
 def detect():
     # Model loaded from https://huggingface.co/cardiffnlp/twitter-roberta-base-offensive/tree/main
     # model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
-    
-    return process()
+    if request.method == "POST":
+        return process(request.get_json)
+    return process("Good night 😊")
 
     # return str(model.summary())
     # resp ={}
@@ -41,7 +42,7 @@ def softmax(x):
     e_x = np.exp(x - np.max(x))
     return e_x / e_x.sum()
 
-def process():
+def process(inputText):
     # Tasks:
     # emoji, emotion, hate, irony, offensive, sentiment
     # stance/abortion, stance/atheism, stance/climate, stance/feminist, stance/hillary
@@ -61,7 +62,7 @@ def process():
     # PT
     model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
     # model.save_pretrained(MODEL)
-    text = "Good night 😊"
+    text = inputText
     text = preprocess(text)
     tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-offensive")
     encoded_input = tokenizer(text, return_tensors='pt')
