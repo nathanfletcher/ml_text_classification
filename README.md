@@ -60,3 +60,7 @@ Overview steps
     - For mobile apps the serialized model can be added to the mobile app code and can be used with tensorflow there.
 
     - For web apps, there's tensorflow js that can employ the use of models in Javascript.
+
+## Run Web Server locally
+
+Simply run `python src/implementation/flasksample.py`
