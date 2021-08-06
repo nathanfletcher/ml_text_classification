@@ -24,6 +24,7 @@ A lot of learning and inspiration for this project was gotten from:
     - `pip install --upgrade pip`
     - `pip install tensorflow`
     - `pip install -r requirements.txt`
+    - Install pytorch by going to (their website)[https://pytorch.org/get-started/locally/] to know how to do it with your operating system. However, for this mac configuration in this project you can use `pip` by running `pip install torch torchvision`
 - Jupyter notebook is the web app used to create and train models. 
     - Start Jupyter notebook by running `jupyter notebook`
 
