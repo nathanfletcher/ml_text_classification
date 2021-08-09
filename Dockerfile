@@ -13,4 +13,4 @@ ENV PORT 8080
 
 # Use gunicorn as the entrypoint
 # CMD exec gunicorn --bind :8080 flasksample:app --workers 1 --threads 1 --timeout 60
-CMD exec python src/implementation/flasksample.py
+CMD exec python flasksample.py
