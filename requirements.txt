@@ -10,6 +10,6 @@ jupyter
 ipython-autotime
 ipython-beautifulSoup[bs4,notebook]
 mwparserfromhell
-torch
+
 transformers
 gunicorn
